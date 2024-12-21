@@ -56,10 +56,14 @@ export default function Predictor() {
     process.env.NODE_ENV === "development"
       ? "http://127.0.0.1:5000"
       : process.env.NEXT_PUBLIC_API_URL;
+  const APP_URL =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : process.env.NEXT_PUBLIC_APP_URL;
 
   const checkChances = async () => {
     try {
-      const chances = await axios.post("/api/customer");
+      const chances = await axios.post(`${APP_URL}/api/customer`);
       setChances(chances.data.chances);
       toast({
         variant: "default",
@@ -268,7 +272,7 @@ export default function Predictor() {
         subtitle="Predict Crop Health"
       />
       <h3 className="text-muted-foreground text-lg text-center">
-        Chances Remaining:{" "}
+        Chances Remaining: &nbsp;
         {chances !== null && chances !== undefined ? chances : 0}
       </h3>
       <Tabs defaultValue="predict" className="space-y-4 relative">
