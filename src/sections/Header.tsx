@@ -72,21 +72,19 @@ export default function Header() {
             </Link>
           ))}
         </div>
-        <div className="gap-2 flex justify-center items-center">
-          <Button
-            onClick={toggleMenu}
-            variant="ghost"
-            size="icon"
-            className="md:hidden rounded-full text-background">
-            <FaBars />
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="hidden md:flex hover:scale-[1.2] hover:bg-other">
-            <FaSearch />
-          </Button>
-        </div>
+        <Button
+          onClick={toggleMenu}
+          variant="ghost"
+          size="icon"
+          className="lg:hidden rounded-full text-background">
+          <FaBars />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          className="hidden lg:flex hover:scale-[1.2] hover:bg-other">
+          <FaSearch />
+        </Button>
       </nav>
     </header>
   );
