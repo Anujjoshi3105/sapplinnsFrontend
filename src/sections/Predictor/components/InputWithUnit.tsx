@@ -41,6 +41,7 @@ export const InputWithUnit: React.FC<InputWithUnitProps> = ({
         onChange={(e) => onChange(e.target.value)}
         className="flex-1 "
         disabled={loading}
+        required
       />
       <Select value={unit} onValueChange={onUnitChange}>
         <SelectTrigger className="w-[100px]">
