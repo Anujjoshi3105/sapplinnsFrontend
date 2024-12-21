@@ -74,7 +74,7 @@ export default function Hero() {
             viewport={{ once: true, amount: 0.2 }}
             variants={headingVariants}
             className="space-y-4 py-24 text-background max-w-5xl px-4 mx-auto">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-balance mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold md:text-balance mb-4">
               Empowering Farmers with Precision Technology
             </h1>
             <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl text-balance mb-6">

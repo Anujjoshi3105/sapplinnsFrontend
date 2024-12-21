@@ -46,8 +46,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="select-none">
-      <div className="p-12 rounded-t-3xl bg-primary text-background text-base ">
+    <footer className="select-none bg-primary">
+      <div className="p-12 text-background text-base ">
         <div className="container grid gap-8 md:grid-cols-2 lg:grid-cols-4 text-center md:text-left">
           {/* Brand Section */}
           <div className="space-y-4">
@@ -118,7 +118,7 @@ export default function Footer() {
       </div>
 
       {/* Footer Bottom */}
-      <div className="bg-other py-2 rounded-t-2xl text-center flex flex-col-reverse gap-2 md:flex-row justify-around items-center">
+      <div className="bg-other py-2 rounded-t-2xl lg:rounded-t-3xl text-center flex flex-col-reverse gap-2 md:flex-row justify-around items-center">
         <p>
           All rights are reserved by&nbsp;
           <Link href="/" className="hover:underline">

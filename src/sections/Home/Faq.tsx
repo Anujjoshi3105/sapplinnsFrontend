@@ -32,7 +32,7 @@ const animationVariants = {
 
 export default function FAQ({ faqItems = FAQItems }: { faqItems?: FAQItem[] }) {
   return (
-    <section className="max-w-4xl mx-auto py-24 px-6 space-y-6 md:space-y-12">
+    <section className="max-w-3xl overflow-clip mx-auto py-24 px-6 space-y-6 md:space-y-12">
       <Heading
         title="Frequently Asked Questions"
         subtitle="Explore Commonly Asked Questions"

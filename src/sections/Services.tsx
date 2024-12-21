@@ -24,13 +24,13 @@ const cardVariants = {
 
 export default function Services() {
   return (
-    <section className="container px-4 sm:px-8 md:px-12 py-24 space-y-8">
+    <section className="px-4 sm:px-8 lg:px-12 py-24 space-y-8">
       {/* Heading Section */}
       <Heading title="Agricultural Services" subtitle="What We Offer" />
 
       {/* Services Grid */}
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 "
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -48,7 +48,7 @@ export default function Services() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.5 }}>
-        <p className="mx-auto max-w-xl text-muted-foreground">
+        <p className="mx-auto max-w-xl text-muted-foreground my-4">
           Customized solutions for modern farming. Contact us for personalized
           pricing based on your farm&apos;s size and specific needs.
         </p>

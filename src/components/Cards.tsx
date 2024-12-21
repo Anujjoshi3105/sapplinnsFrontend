@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { ArrowRightIcon } from "lucide-react";
 
 export function ServiceCard({
   service,
@@ -43,9 +44,13 @@ export function ServiceCard({
         </ul>
       </CardContent>
       <CardFooter>
-        <Link href="/contact">
-          <Button className="w-full">Learn More</Button>
-        </Link>
+        <Button
+          effect="expandIcon"
+          icon={ArrowRightIcon}
+          iconPlacement="right"
+          className="w-full">
+          <Link href="/contact">Learn More</Link>
+        </Button>
       </CardFooter>
     </Card>
   );
@@ -63,10 +68,10 @@ export function FeatureCard({
   return (
     <Card
       key={feature.title}
-      className="rounded-3xl p-2 md:p-4 cursor-pointer group hover:bg-other shadow-xl hover:scale-[1.02] duration-300 select-none">
-      <CardContent className="p-4 md:p-6">
-        <div className="flex items-start gap-4">
-          <div className="rounded-full bg-other group-hover:bg-card p-4">
+      className="rounded-3xl p-2 md:p-4 cursor-pointer group hover:bg-other shadow-lg hover:scale-[1.02] duration-300 select-none">
+      <CardContent className="p-4 lg:p-6">
+        <div className="sm:flex items-start gap-4">
+          <div className="rounded-full inline-flex bg-other group-hover:bg-card p-4 mb-2">
             <feature.icon className="h-6 w-6 text-primary" />
           </div>
           <div className="space-y-6">

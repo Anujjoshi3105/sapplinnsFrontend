@@ -31,13 +31,12 @@ const cardVariants = {
 
 export default function Features() {
   return (
-    <div className="container mx-auto p-6 md:p-16">
+    <div className="container mx-auto p-6 lg:p-16">
       {/* Heading Section */}
       <Heading title="Products From Scratch" subtitle="FEATURES WE OFFER" />
-
       {/* Features Grid */}
       <motion.div
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 lg:grid-cols-2"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"

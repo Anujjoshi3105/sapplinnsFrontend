@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     { name: "Gunjan Rajput", url: "https://github.com/gunjanrajput" },
     { name: "Anuj Joshi", url: "https://anujjoshi.netlify.app" },
   ],
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
@@ -91,7 +90,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-x-hidden antialiased relative`}
+        className={`${geistSans.variable} ${geistMono.variable} overflow-x-clip antialiased relative`}
         suppressHydrationWarning>
         <Header />
         <ClientLayout>{children}</ClientLayout>

@@ -31,14 +31,14 @@ const cardVariants = {
 
 export const Pricing = () => {
   return (
-    <section className="container px-6 sm:px-12 py-24 sm:py-32">
+    <section className="container mx-auto px-6 sm:px-12 py-24 sm:py-32">
       <Heading
         title="Agricultural Plans"
         subtitle="PERFORMANCE OPTIMISATION PLANS"
       />
 
       <motion.div
-        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-4"
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-4 mt-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}

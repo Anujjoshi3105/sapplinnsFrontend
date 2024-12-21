@@ -31,7 +31,7 @@ const itemVariants = {
 
 export default function About() {
   return (
-    <section className="container mx-auto px-4 sm:px-8 lg:p-16">
+    <section className="mx-auto px-4 md:p-8 lg:p-16">
       <div className="grid gap-8 md:gap-12 lg:grid-cols-2">
         {/* Image Grid */}
         <motion.div
