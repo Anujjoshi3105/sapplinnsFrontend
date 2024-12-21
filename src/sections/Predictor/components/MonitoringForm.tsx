@@ -125,7 +125,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
         <Button type="submit" disabled={loading} className="w-full mt-4">
           {loading ? (
             <>
-              <Loader className="mr-2 animate-spin" />
+              <Loader className="mr-1 animate-spin" />
               Analysing...
             </>
           ) : (

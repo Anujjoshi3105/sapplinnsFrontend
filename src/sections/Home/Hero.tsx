@@ -55,7 +55,7 @@ export default function Hero() {
   };
   return (
     <section className="relative flex flex-col justify-between min-h-screen">
-      <div className="relative flex-grow h-[90vh]" aria-label="Hero section">
+      <div className="relative flex-grow h-[94vh]" aria-label="Hero section">
         <Image
           src="/hero.jpg"
           alt="Hero background"

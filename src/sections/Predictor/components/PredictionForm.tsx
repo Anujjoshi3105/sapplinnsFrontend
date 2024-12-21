@@ -116,7 +116,7 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
         <Button type="submit" disabled={loading} className="w-full">
           {loading ? (
             <>
-              <Loader className="mr-2 animate-spin" />
+              <Loader className="mr-1 animate-spin" />
               Predicting...
             </>
           ) : (

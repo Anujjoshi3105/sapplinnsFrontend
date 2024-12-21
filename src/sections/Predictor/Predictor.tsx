@@ -56,14 +56,10 @@ export default function Predictor() {
     process.env.NODE_ENV === "development"
       ? "http://127.0.0.1:5000"
       : process.env.NEXT_PUBLIC_API_URL;
-  const APP_URL =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : process.env.NEXT_PUBLIC_APP_URL;
 
   const checkChances = async () => {
     try {
-      const chances = await axios.post(`${APP_URL}/api/customer`);
+      const chances = await axios.post("/api/customer");
       setChances(chances.data.chances);
       toast({
         variant: "default",
