@@ -13,6 +13,6 @@ export async function POST(request: Request) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error("Error sending email:", error);
-    return NextResponse.json({ url: process.env.BASE_MAIL }, { status: 500 });
+    return NextResponse.json({ url: process.env.ADMIN_MAIL }, { status: 500 });
   }
 }

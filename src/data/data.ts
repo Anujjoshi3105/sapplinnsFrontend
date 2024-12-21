@@ -385,7 +385,7 @@ export const contactDetails = [
     title: "Email",
     subtitle: "sapplinns@gmail.com",
     icon: FaEnvelope,
-    link: "mailto:sapplnins@gmail.com",
+    link: "mailto:sapplinns@gmail.com",
   },
   {
     title: "Visit Our Office",

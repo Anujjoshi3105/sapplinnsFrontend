@@ -51,10 +51,10 @@ export default function Predictor() {
     cropHealth: "",
   });
 
-  const API_URI =
+  const API_URL =
     process.env.NODE_ENV === "development"
       ? "http://127.0.0.1:5000"
-      : process.env.NEXT_PUBLIC_API_URI;
+      : process.env.NEXT_PUBLIC_API_URL;
 
   // Handle the form submission for crop prediction
   const handlePredictionSubmit = useCallback(
@@ -81,7 +81,7 @@ export default function Predictor() {
         return;
       }
       try {
-        const predict = await axios.post(`${API_URI}/predict`, {
+        const predict = await axios.post(`${API_URL}/predict`, {
           nitrogen: formData.nitrogen,
           phosphorus: formData.phosphorus,
           potassium: formData.potassium,
@@ -146,7 +146,7 @@ export default function Predictor() {
         return;
       }
       try {
-        const health = await axios.post(`${API_URI}/health`, {
+        const health = await axios.post(`${API_URL}/health`, {
           nitrogen: formData.nitrogen,
           phosphorus: formData.phosphorus,
           potassium: formData.potassium,
@@ -180,7 +180,7 @@ export default function Predictor() {
         setLoading(false);
       }
     },
-    [formData, API_URI, toast]
+    [formData, API_URL, toast]
   );
   const handleGenerateCropInfo = useCallback(async () => {
     if (results.prediction === "") {
@@ -193,7 +193,7 @@ export default function Predictor() {
     }
     setLoading(true);
     try {
-      const generate = await axios.post(`${API_URI}/generate`, {
+      const generate = await axios.post(`${API_URL}/generate`, {
         predicted_crop: results.prediction,
       });
       setResults((prev) => ({
@@ -209,7 +209,7 @@ export default function Predictor() {
     } finally {
       setLoading(false);
     }
-  }, [results.prediction, API_URI, toast]);
+  }, [results.prediction, API_URL, toast]);
 
   // Update prediction data based on user input
   const handleFormDataChange = useCallback((key: string, value: string) => {

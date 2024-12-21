@@ -11,11 +11,6 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
-const APP_URL =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : process.env.APP_URL;
-
 // Email sent to the admin team (Sapplinns)
 export const sendToAdmin = (name: string, email: string, msg: string) => {
   const mailOptions = {
@@ -29,7 +24,7 @@ export const sendToAdmin = (name: string, email: string, msg: string) => {
         <p><strong>Message:</strong></p>
         <p>${msg}</p>
         <hr>
-        <a href="${APP_URL}" style="font-size: 14px; color: #555;">This message was submitted via the Sapplinns website</a>
+        <a href="${process.env.APP_URL}" style="font-size: 14px; color: #555;">This message was submitted via the Sapplinns website</a>
       </div>
     `,
   };
@@ -53,10 +48,10 @@ export const sendToUser = (name: string, email: string) => {
           If you have any urgent questions, feel free to reply to this email or visit our website for more information.
         </p>
         <p style="text-align: center; margin-top: 20px;">
-          <a href="${APP_URL}" style="background-color: #4CAF50; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Visit Sapplinns</a>
+          <a href="${process.env.APP_URL}" style="background-color: #4CAF50; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 5px;">Visit Sapplinns</a>
         </p>
         <hr>
-        <a href="${APP_URL}" style="font-size: 14px; color: #555;">Sapplinns: A Revolution in Smart Farming</a>
+        <a href="${process.env.APP_URL}" style="font-size: 14px; color: #555;">Sapplinns: Empowering the Future of Farming</a>
         <p style="font-size: 14px; color: #555;">This is an automated message. Please do not reply to this. </p>
       </div>
     `,

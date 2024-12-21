@@ -18,6 +18,7 @@ type InputWithUnitProps = {
   unit: string;
   onChange: (value: string) => void;
   onUnitChange: (value: string) => void;
+  loading: boolean;
 };
 
 export const InputWithUnit: React.FC<InputWithUnitProps> = ({
@@ -28,6 +29,7 @@ export const InputWithUnit: React.FC<InputWithUnitProps> = ({
   unit,
   onChange,
   onUnitChange,
+  loading,
 }) => (
   <div className="space-y-2">
     <Label htmlFor={name}>{label}</Label>
@@ -38,6 +40,7 @@ export const InputWithUnit: React.FC<InputWithUnitProps> = ({
         type="number"
         onChange={(e) => onChange(e.target.value)}
         className="flex-1 "
+        disabled={loading}
       />
       <Select value={unit} onValueChange={onUnitChange}>
         <SelectTrigger className="w-[100px]">

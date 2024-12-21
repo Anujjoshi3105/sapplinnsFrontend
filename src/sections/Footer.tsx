@@ -37,7 +37,7 @@ export default function Footer() {
     } catch {
       toast({
         title: "Error",
-        description: `There was an error sending your message. Please try again. If the problem persists, please contact us directly at ${process.env.NEXT_PUBLIC_MAIL}.`,
+        description: `There was an error sending your message. Please try again. If the problem persists, please contact us directly at ${process.env.NEXT_PUBLIC_ADMIN_MAIL}.`,
         variant: "destructive",
       });
     } finally {

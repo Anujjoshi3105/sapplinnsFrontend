@@ -53,7 +53,7 @@ export function RoundBtn({
       animate={{ x, y }}
       transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
       className={cn(
-        "group cursor-pointer hover:scale-105 ring-2 ring-primary relative flex items-center justify-center bg-primary text-background hover:bg-background hover:text-primary rounded-full transition-all",
+        "group duration-200 cursor-pointer hover:scale-150 ring-2 ring-primary relative flex items-center justify-center bg-primary text-background hover:bg-background hover:text-primary rounded-full transition-all",
         className,
         currentSize
       )}>

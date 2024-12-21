@@ -41,6 +41,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           unit={units.nitrogen}
           onChange={(value) => onDataChange("nitrogen", value)}
           onUnitChange={(value) => onUnitChange("nitrogen", value)}
+          loading={loading}
         />
         <InputWithUnit
           name="phosphorus"
@@ -50,6 +51,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           unit={units.phosphorus}
           onChange={(value) => onDataChange("phosphorus", value)}
           onUnitChange={(value) => onUnitChange("phosphorus", value)}
+          loading={loading}
         />
         <InputWithUnit
           name="potassium"
@@ -59,6 +61,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           unit={units.potassium}
           onChange={(value) => onDataChange("potassium", value)}
           onUnitChange={(value) => onUnitChange("potassium", value)}
+          loading={loading}
         />
         <div className="space-y-2">
           <Label htmlFor="ph">pH Value</Label>
@@ -67,6 +70,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
             value={data.ph}
             type="number"
             onChange={(e) => onDataChange("ph", e.target.value)}
+            disabled={loading}
           />
         </div>
       </CardContent>
@@ -87,6 +91,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           unit={units.temperature}
           onChange={(value) => onDataChange("temperature", value)}
           onUnitChange={(value) => onUnitChange("temperature", value)}
+          loading={loading}
         />
         <InputWithUnit
           name="humidity"
@@ -96,6 +101,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           unit={units.humidity}
           onChange={(value) => onDataChange("humidity", value)}
           onUnitChange={(value) => onUnitChange("humidity", value)}
+          loading={loading}
         />
         <InputWithUnit
           name="conductivity"
@@ -105,6 +111,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           unit={units.conductivity}
           onChange={(value) => onDataChange("conductivity", value)}
           onUnitChange={(value) => onUnitChange("conductivity", value)}
+          loading={loading}
         />
         <div className="space-y-2">
           <Label htmlFor="cropGrown">Current Crop</Label>
@@ -112,6 +119,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
             id="cropGrown"
             value={data.cropGrown}
             onChange={(e) => onDataChange("cropGrown", e.target.value)}
+            disabled={loading}
           />
         </div>
         <Button type="submit" disabled={loading} className="w-full mt-4">
