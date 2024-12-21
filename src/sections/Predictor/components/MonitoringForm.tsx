@@ -63,7 +63,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           onUnitChange={(value) => onUnitChange("potassium", value)}
           loading={loading}
         />
-        <div className="space-y-2">
+        <div className="space-y-1">
           <Label htmlFor="ph">pH Value</Label>
           <Input
             id="ph"
@@ -113,7 +113,7 @@ export const MonitoringForm: React.FC<MonitoringFormProps> = ({
           onUnitChange={(value) => onUnitChange("conductivity", value)}
           loading={loading}
         />
-        <div className="space-y-2">
+        <div className="space-y-1">
           <Label htmlFor="cropGrown">Current Crop</Label>
           <Input
             id="cropGrown"

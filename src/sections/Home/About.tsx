@@ -85,7 +85,7 @@ export default function About() {
           <motion.div variants={itemVariants}>
             <Heading
               title="Nurturing Nature, Growing Together"
-              subtitle="ABOUT US"
+              subtitle="About Our Mission"
             />
           </motion.div>
           <motion.p

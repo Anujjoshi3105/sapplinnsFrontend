@@ -63,7 +63,7 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
           onUnitChange={(value) => onUnitChange("potassium", value)}
           loading={loading}
         />
-        <div className="space-y-2">
+        <div className="space-y-1">
           <Label htmlFor="ph">pH Value</Label>
           <Input
             id="ph"
@@ -113,7 +113,7 @@ export const PredictionForm: React.FC<PredictionFormProps> = ({
           onUnitChange={(value) => onUnitChange("rainfall", value)}
           loading={loading}
         />
-        <Button type="submit" disabled={loading} className="w-full mt-6">
+        <Button type="submit" disabled={loading} className="w-full">
           {loading ? (
             <>
               <Loader className="mr-2 animate-spin" />

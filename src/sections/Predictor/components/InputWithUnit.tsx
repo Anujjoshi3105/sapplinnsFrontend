@@ -31,7 +31,7 @@ export const InputWithUnit: React.FC<InputWithUnitProps> = ({
   onUnitChange,
   loading,
 }) => (
-  <div className="space-y-2">
+  <div className="space-y-1">
     <Label htmlFor={name}>{label}</Label>
     <div className="flex gap-2">
       <Input

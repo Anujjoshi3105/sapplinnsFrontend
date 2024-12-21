@@ -55,7 +55,7 @@ export default function Hero() {
   };
   return (
     <section className="relative flex flex-col justify-between min-h-screen">
-      <div className="relative flex-grow h-[95vh]" aria-label="Hero section">
+      <div className="relative flex-grow h-[90vh]" aria-label="Hero section">
         <Image
           src="/hero.jpg"
           alt="Hero background"
@@ -118,7 +118,7 @@ export default function Hero() {
         viewport={{ once: true, amount: 0.2 }}
         variants={footerVariants}>
         <div className="max-w-full p-2 md:p-6 mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 place-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 place-items-center">
             {/* Contact Information */}
             <a
               target="_blank"
@@ -152,7 +152,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Additional Contact Links */}
-            <nav className="flex flex-wrap justify-center md:justify-end gap-2">
+            <nav className="flex flex-wrap justify-center md:justify-end gap-6">
               {contactInfo.slice(1).map((info) => (
                 <motion.div
                   key={info.href}

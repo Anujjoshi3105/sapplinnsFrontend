@@ -68,18 +68,14 @@ export function FeatureCard({
   return (
     <Card
       key={feature.title}
-      className="rounded-3xl p-2 md:p-4 cursor-pointer group hover:bg-other shadow-lg hover:scale-[1.02] duration-300 select-none">
-      <CardContent className="p-4 lg:p-6">
-        <div className="sm:flex items-start gap-4">
-          <div className="rounded-full inline-flex bg-other group-hover:bg-card p-4 mb-2">
-            <feature.icon className="h-6 w-6 text-primary" />
-          </div>
-          <div className="space-y-6">
-            <h3 className="font-semibold text-xl">{feature.title}</h3>
-            <p className="text-foreground/70">{feature.description}</p>
-          </div>
-        </div>
-      </CardContent>
+      className="rounded-3xl sm:flex items-start gap-4 p-7 cursor-pointer group hover:bg-other shadow-lg hover:scale-[1.02] duration-300 select-none">
+      <div className="inline-flex rounded-full bg-other group-hover:bg-card p-3 m-2">
+        <feature.icon className="h-6 w-6 text-primary" />
+      </div>
+      <div className="space-y-2">
+        <h3 className="font-semibold text-xl">{feature.title}</h3>
+        <p className="text-foreground/70">{feature.description}</p>
+      </div>
     </Card>
   );
 }

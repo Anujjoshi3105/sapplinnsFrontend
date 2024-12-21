@@ -15,8 +15,8 @@ export default function Heading({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.5 }}
-      className="text-center mb-8 space-y-2">
-      <div className="flex items-center justify-center gap-2 text-emerald-600">
+      className="text-center mb-8 space-y-0.5">
+      <div className="flex items-center justify-center gap-2 text-primary">
         <SproutIcon className="h-5 w-5" />
         <span className="text-lg font-medium tracking-wide">{subtitle}</span>
       </div>
