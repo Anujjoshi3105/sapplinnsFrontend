@@ -21,6 +21,7 @@ export async function POST(req: Request): Promise<Response> {
   try {
     await connectDB();
 
+    // Extract the primary IP
     const userIp =
       req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip");
     if (!userIp) {
@@ -30,10 +31,12 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    let user = await UserModel.findOne({ userIp: userIp });
+    const primaryIp = userIp.split(",")[0].trim(); // Use only the first IP
+
+    let user = await UserModel.findOne({ userIp: primaryIp });
 
     if (!user) {
-      user = await UserModel.create({ userIp: userIp });
+      user = await UserModel.create({ userIp: primaryIp });
       return new Response(
         JSON.stringify({
           success: true,
