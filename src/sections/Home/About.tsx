@@ -1,13 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, Check } from "lucide-react";
 import Heading from "@/components/Heading";
 import { about } from "@/data/data";
 import { motion } from "framer-motion";
-import Link from "next/link";
-
+import SubscribeBtn from "@/components/SubscribeBtn";
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -116,12 +114,10 @@ export default function About() {
           </motion.ul>
 
           <motion.div variants={itemVariants}>
-            <Link href="/services">
-              <Button variant="other" className="w-fit mt-4">
-                Try Now
-                <ArrowRightIcon />
-              </Button>
-            </Link>
+            <SubscribeBtn variant="other" className="w-fit mt-4">
+              Try Now
+              <ArrowRightIcon />
+            </SubscribeBtn>
           </motion.div>
         </motion.div>
       </div>

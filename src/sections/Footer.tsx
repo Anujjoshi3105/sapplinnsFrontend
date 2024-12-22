@@ -4,14 +4,13 @@ import { AiOutlineSend } from "react-icons/ai";
 import Link from "next/link";
 import { bottomLinks, footerLinks } from "@/data/data";
 import { FormEvent, useState } from "react";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import axios from "axios";
 
 export default function Footer() {
   const [mail, setMail] = useState("");
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -28,17 +27,13 @@ export default function Footer() {
         throw new Error("Failed to send email");
       }
 
-      toast({
-        title: "Message Sent",
+      toast("Message Sent", {
         description: "Thank you for your message. We'll get back to you soon!",
-        variant: "default",
       });
       setMail("");
     } catch {
-      toast({
-        title: "Error",
+      toast("Error", {
         description: `There was an error sending your message. Please try again. If the problem persists, please contact us directly at ${process.env.NEXT_PUBLIC_ADMIN_MAIL}.`,
-        variant: "destructive",
       });
     } finally {
       setLoading(false);
@@ -84,7 +79,6 @@ export default function Footer() {
           ))}
 
           {/* Newsletter Section */}
-
           <div>
             <h5 className="text-lg font-bold uppercase mb-3 text-other">
               Newsletter
@@ -102,14 +96,16 @@ export default function Footer() {
                 placeholder="Your email address"
                 disabled={loading}
                 className="flex-1 p-3 text-foreground max-w-sm border-2"
+                required
               />
               <button
                 type="submit"
+                disabled={loading}
                 className="px-4 bg-black flex items-center justify-center active:scale-95 group">
                 {loading ? (
                   <Loader className="animate-spin" />
                 ) : (
-                  <AiOutlineSend className="group-hover:scale-[1.2] duration-200 ease-in-out" />
+                  <AiOutlineSend />
                 )}
               </button>
             </form>

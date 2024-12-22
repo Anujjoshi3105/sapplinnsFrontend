@@ -1,19 +1,26 @@
 "use client";
 
-import { useState, useCallback, useMemo, memo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Sprout, Loader, PhoneCallIcon, Tractor } from "lucide-react";
+import {
+  Sprout,
+  Loader,
+  PhoneCallIcon,
+  Tractor,
+  Leaf,
+  Microscope,
+} from "lucide-react";
 import { UnitData, Results } from "./types";
 import { PredictionForm } from "./components/PredictionForm";
 import { MonitoringForm } from "./components/MonitoringForm";
 import axios from "axios";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import Heading from "@/components/Heading";
-import Message from "./Message";
+import { Badge } from "@/components/ui/badge";
+import { useSubscribe } from "@/contexts/SubscribeContext";
+import SubscribeBtn from "@/components/SubscribeBtn";
 
 const initialFormData = {
   nitrogen: "",
@@ -24,7 +31,7 @@ const initialFormData = {
   humidity: "",
   rainfall: "",
   conductivity: "",
-  cropGrown: "",
+  crop: "",
 };
 
 const initialUnits: UnitData = {
@@ -38,7 +45,7 @@ const initialUnits: UnitData = {
 };
 
 export default function Predictor() {
-  const { toast } = useToast();
+  const { setShowSubscribe } = useSubscribe();
   const [loading, setLoading] = useState(false);
   const [chances, setChances] = useState<number>(2);
   const [formData, setFormData] = useState(initialFormData);
@@ -56,67 +63,52 @@ export default function Predictor() {
     process.env.NODE_ENV === "development"
       ? "http://127.0.0.1:5000"
       : process.env.NEXT_PUBLIC_API_URL;
-  const APP_URL =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : process.env.NEXT_PUBLIC_APP_URL;
 
-  const checkChances = async () => {
+  const checkChances = useCallback(async () => {
     try {
-      const chances = await axios.post(`${APP_URL}/api/customer`);
+      const ipResponse = await axios.get("https://api.ipify.org?format=json");
+      const userIp = ipResponse.data.ip;
+      const chances = await axios.post("/api/user", { userIp: userIp });
       setChances(chances.data.chances);
-      toast({
-        variant: "default",
-        title: "Number of Trials Remaining",
+
+      if (chances.data.chances === 0) {
+        setShowSubscribe(true);
+        return false;
+      }
+
+      toast("Number of Trials Remaining", {
         description: chances.data.message,
       });
       return true;
     } catch (error) {
       console.error("Error during chances:", error);
-      toast({
-        variant: "destructive",
-        title: "Chances Error",
+      toast("Chances Error", {
         description: "Failed to connect to the server.",
       });
       return false;
     }
-  };
+  }, [setShowSubscribe]);
 
   const handlePredictionSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
       setLoading(true);
 
-      if ((await checkChances()) === false) {
+      if (!(await checkChances())) {
         setLoading(false);
         return;
       }
 
-      if (
-        !formData.nitrogen ||
-        !formData.phosphorus ||
-        !formData.potassium ||
-        !formData.ph ||
-        !formData.temperature ||
-        !formData.humidity ||
-        !formData.rainfall
-      ) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Please provide all values for crop prediction.",
-        });
-        setLoading(false);
-        return;
-      }
       try {
         const predict = await axios.post(`${API_URL}/predict`, {
           nitrogen: formData.nitrogen,
           phosphorus: formData.phosphorus,
           potassium: formData.potassium,
           ph: formData.ph,
-          humidity: formData.humidity,
           temperature: formData.temperature,
+          humidity: formData.humidity,
+          rainfall: formData.rainfall,
+          conductivity: formData.conductivity,
         });
 
         setResults((prev) => ({
@@ -126,26 +118,22 @@ export default function Predictor() {
 
         setFormData((prev) => ({
           ...prev,
-          cropGrown: predict.data["Predicted Crop"],
+          crop: predict.data["Predicted Crop"],
         }));
 
-        toast({
-          variant: "default",
-          title: "Prediction Result",
-          description: predict.data["Predicted Crop"],
+        toast("Prediction Result", {
+          description: `Predicted Crop: ${predict.data["Predicted Crop"]}`,
         });
       } catch (error) {
         console.error("Error during prediction:", error);
-        toast({
-          variant: "destructive",
-          title: "Network Error",
+        toast("Network Error", {
           description: "Failed to connect to the server.",
         });
       } finally {
         setLoading(false);
       }
     },
-    [formData, results.prediction]
+    [formData, API_URL, checkChances]
   );
 
   const handleHealthSubmit = useCallback(
@@ -153,39 +141,21 @@ export default function Predictor() {
       e.preventDefault();
       setLoading(true);
 
-      if ((await checkChances()) === false) {
+      if (!(await checkChances())) {
         setLoading(false);
         return;
       }
 
-      if (
-        !formData.nitrogen ||
-        !formData.phosphorus ||
-        !formData.potassium ||
-        !formData.ph ||
-        !formData.temperature ||
-        !formData.conductivity ||
-        !formData.humidity ||
-        !formData.cropGrown
-      ) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Please provide all values for health monitoring.",
-        });
-        setLoading(false);
-        return;
-      }
       try {
         const health = await axios.post(`${API_URL}/health`, {
           nitrogen: formData.nitrogen,
           phosphorus: formData.phosphorus,
           potassium: formData.potassium,
-          ph: formData.ph,
           temperature: formData.temperature,
-          conductivity: formData.conductivity,
           humidity: formData.humidity,
-          crop: formData.cropGrown,
+          ph: formData.ph,
+          conductivity: formData.conductivity,
+          crop: formData.crop,
         });
 
         setResults((prev) => ({
@@ -193,34 +163,27 @@ export default function Predictor() {
           cropHealth: health.data,
         }));
 
-        toast({
-          variant: "default",
-          title: "Health Result",
+        toast("Health Result", {
           description: "Detailed crop health information is generated",
         });
       } catch (error) {
         console.error("Error during health:", error);
-        toast({
-          variant: "destructive",
-          title: "Network Error",
+        toast("Network Error", {
           description: "Failed to connect to the server.",
         });
       } finally {
         setLoading(false);
       }
     },
-    [formData, API_URL, toast]
+    [formData, API_URL, checkChances]
   );
+
   const handleGenerateCropInfo = useCallback(async () => {
-    if ((await checkChances()) === false) {
-      setLoading(false);
+    if (!(await checkChances())) {
       return;
     }
-
     if (results.prediction === "") {
-      toast({
-        variant: "destructive",
-        title: "Error",
+      toast("Error", {
         description: "Please predict the crop first!",
       });
       return;
@@ -235,15 +198,13 @@ export default function Predictor() {
         predictionInfo: generate.data.crop_info,
       }));
     } catch {
-      toast({
-        variant: "destructive",
-        title: "Generation Error",
+      toast("Generation Error", {
         description: "Error occurred while fetching crop details.",
       });
     } finally {
       setLoading(false);
     }
-  }, [results.prediction, API_URL, toast]);
+  }, [results.prediction, API_URL, checkChances]);
 
   const handleFormDataChange = useCallback((key: string, value: string) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
@@ -263,26 +224,39 @@ export default function Predictor() {
     []
   );
 
-  const MemoizedPredictionForm = useMemo(() => memo(PredictionForm), []);
-  const MemoizedMonitoringForm = useMemo(() => memo(MonitoringForm), []);
+  const MemoizedPredictionForm = useMemo(() => PredictionForm, []);
+  const MemoizedMonitoringForm = useMemo(() => MonitoringForm, []);
+
   return (
-    <div className="p-4 space-y-4 max-w-6xl mx-auto">
+    <div className="p-4 space-y-4 max-w-6xl mx-auto relative">
       <Heading
         title="Smart Tools for Thriving Crop Health"
         subtitle="Predict Crop Health"
       />
-      <h3 className="text-muted-foreground text-lg text-center">
-        Chances Remaining: &nbsp;
-        {chances !== null && chances !== undefined ? chances : 0}
-      </h3>
+      <div className="w-full flex flex-col justify-center gap-1 items-center">
+        <Badge className="text-lg">
+          Chances Remaining: &nbsp;
+          {chances !== null && chances !== undefined ? chances : 0}
+        </Badge>
+        {chances === 0 && (
+          <div className="text-destructive">
+            Sorry, You have reached your limit
+          </div>
+        )}
+      </div>
       <Tabs defaultValue="predict" className="space-y-4 relative">
-        {chances <= 0 && <Message />}
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="predict" className="md:text-lg">
-            Predict Crop
+          <TabsTrigger
+            value="predict"
+            className="flex md:text-lg items-center gap-2 text-emerald-600">
+            <Leaf className="h-6 w-6" />
+            Crop Prediction
           </TabsTrigger>
-          <TabsTrigger value="monitor" className="md:text-lg">
-            Health Monitoring
+          <TabsTrigger
+            value="monitor"
+            className="flex md:text-lg items-center gap-2 text-blue-500">
+            <Microscope className="h-6 w-6" />
+            Monitoring Data
           </TabsTrigger>
         </TabsList>
 
@@ -324,7 +298,7 @@ export default function Predictor() {
                     </div>
                   </div>
                 </div>
-                {results.predictionInfo && (
+                {results.predictionInfo && chances > 0 && (
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -332,15 +306,6 @@ export default function Predictor() {
                     <ReactMarkdown className="prose">
                       {results.predictionInfo}
                     </ReactMarkdown>
-                    <Button
-                      effect="expandIcon"
-                      icon={PhoneCallIcon}
-                      iconPlacement="right"
-                      variant="other"
-                      className="mt-4"
-                      asChild>
-                      <Link href="/contact">Contact now </Link>
-                    </Button>
                   </motion.div>
                 )}
               </div>
@@ -377,21 +342,18 @@ export default function Predictor() {
                     <ReactMarkdown className="prose">
                       {results.cropHealth}
                     </ReactMarkdown>
-                    <Button
-                      effect="expandIcon"
-                      icon={PhoneCallIcon}
-                      iconPlacement="right"
-                      variant="other"
-                      className="mt-4"
-                      asChild>
-                      <Link href="/contact">Contact now </Link>
-                    </Button>
                   </motion.div>
                 )}
               </div>
             </motion.div>
           )}
         </TabsContent>
+        <div className="text-center mt-8">
+          <SubscribeBtn variant="other">
+            <PhoneCallIcon />
+            Subscribe for More Features
+          </SubscribeBtn>
+        </div>
       </Tabs>
     </div>
   );

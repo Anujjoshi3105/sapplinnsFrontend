@@ -9,11 +9,13 @@ import { RoundBtn } from "@/components/animate/roundBtn";
 import { contactInfo } from "@/data/data";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSubscribe } from "@/contexts/SubscribeContext";
 
 export default function Hero() {
+  const { setShowSubscribe } = useSubscribe();
   const scrollDown = useCallback(() => {
     window.scrollTo({
-      top: window.innerHeight * 2,
+      top: window.innerHeight * 2.5,
       behavior: "smooth",
     });
   }, []);
@@ -33,15 +35,6 @@ export default function Hero() {
       opacity: 1,
       y: 0,
       transition: { duration: 0.5, delay: 0.3, ease: "easeOut" },
-    },
-  };
-
-  const footerVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, delay: 0.5, ease: "easeOut" },
     },
   };
 
@@ -103,20 +96,15 @@ export default function Hero() {
               iconPlacement="right"
               variant="outline"
               aria-label="Contact us for more information"
-              asChild>
-              <Link href="/contact">Contact Us</Link>
+              onClick={() => setShowSubscribe(true)}>
+              Contact Us
             </Button>
           </motion.div>
         </div>
       </div>
 
       {/* Footer Section */}
-      <motion.footer
-        className="relative w-full z-10 bg-other rounded-b-[36px] font-bold text-sm"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={footerVariants}>
+      <footer className="relative w-full z-10 bg-other rounded-b-[36px] font-bold text-sm">
         <div className="max-w-full p-2 md:p-6 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 place-items-center">
             {/* Contact Information */}
@@ -165,7 +153,7 @@ export default function Hero() {
             </nav>
           </div>
         </div>
-      </motion.footer>
+      </footer>
     </section>
   );
 }

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Loader } from "lucide-react";
 
 export default function ContactForm() {
@@ -17,7 +17,6 @@ export default function ContactForm() {
     message: "",
   });
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,17 +40,13 @@ export default function ContactForm() {
         throw new Error("Failed to send email");
       }
 
-      toast({
-        title: "Message Sent",
+      toast("Message Sent", {
         description: "Thank you for your message. We'll get back to you soon!",
-        variant: "default",
       });
       setFormData({ name: "", email: "", message: "" });
     } catch {
-      toast({
-        title: "Error",
+      toast("Error", {
         description: `There was an error sending your message. Please try again. If the problem persists, please contact us directly at ${process.env.NEXT_PUBLIC_ADMIN_MAIL}.`,
-        variant: "destructive",
       });
     } finally {
       setLoading(false);

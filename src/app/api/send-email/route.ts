@@ -10,8 +10,7 @@ export async function POST(request: Request) {
       transporter.sendMail(sendToUser(name, email)),
     ]);
     return NextResponse.json({ success: true });
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error sending email:", error);
     return NextResponse.json({ url: process.env.ADMIN_MAIL }, { status: 500 });
   }

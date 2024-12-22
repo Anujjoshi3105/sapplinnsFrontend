@@ -1,7 +1,6 @@
 "use client";
 
 import Heading from "@/components/Heading";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,7 +12,7 @@ import {
 import { PlanProps, plans, PopularPlan } from "@/data/data";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import SubscribeBtn from "@/components/SubscribeBtn";
 
 const cardVariants = {
   hidden: { opacity: 0, y: 30, scale: 0.95 },
@@ -57,8 +56,7 @@ export const Pricing = () => {
                     : ""
                 }>
                 <CardHeader>
-                  <CardTitle className="pb-2">{title}</CardTitle>
-
+                  <CardTitle className="text-xl">{title}</CardTitle>
                   <CardDescription className="pb-4">
                     {description}
                   </CardDescription>
@@ -81,14 +79,13 @@ export const Pricing = () => {
                 </CardContent>
 
                 <CardFooter>
-                  <Button
+                  <SubscribeBtn
+                    className="w-full"
                     variant={
                       popular === PopularPlan.YES ? "default" : "secondary"
-                    }
-                    className="w-full"
-                    asChild>
-                    <Link href="/contact">{buttonText}</Link>
-                  </Button>
+                    }>
+                    {buttonText}
+                  </SubscribeBtn>
                 </CardFooter>
               </Card>
             </motion.div>

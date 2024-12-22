@@ -1,5 +1,6 @@
+import SubscribeBtn from "@/components/SubscribeBtn";
 import { Button } from "@/components/ui/button";
-import { ArrowRightIcon, PhoneCallIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function Banner() {
@@ -17,14 +18,7 @@ export default function Banner() {
           asChild>
           <Link href="/services">Learn More</Link>
         </Button>
-        <Button
-          effect="expandIcon"
-          icon={PhoneCallIcon}
-          iconPlacement="right"
-          variant="transparent"
-          asChild>
-          <Link href="/contact">Contact Us</Link>
-        </Button>
+        <SubscribeBtn variant="transparent">Contact Us</SubscribeBtn>
       </div>
     </section>
   );

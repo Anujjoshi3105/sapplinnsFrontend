@@ -1,9 +1,9 @@
-import React from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import React, { useCallback } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Microscope, Gauge, Loader } from "lucide-react";
+import { Loader } from "lucide-react";
 import { InputWithUnit } from "./InputWithUnit";
 import { MonitoringData, UnitData } from "../types";
 
@@ -16,123 +16,119 @@ type MonitoringFormProps = {
   loading: boolean;
 };
 
-export const MonitoringForm: React.FC<MonitoringFormProps> = ({
-  data,
-  units,
-  onDataChange,
-  onUnitChange,
-  onSubmit,
-  loading,
-}) => (
-  <form onSubmit={onSubmit} className="grid md:grid-cols-2 gap-6">
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 md:text-xl">
-          <Microscope className="h-5 w-5 text-purple-500" />
-          Soil Analysis
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <InputWithUnit
-          name="nitrogen"
-          label="Nitrogen"
-          unitType="nutrients"
-          value={data.nitrogen}
-          unit={units.nitrogen}
-          onChange={(value) => onDataChange("nitrogen", value)}
-          onUnitChange={(value) => onUnitChange("nitrogen", value)}
-          loading={loading}
-        />
-        <InputWithUnit
-          name="phosphorus"
-          label="Phosphorus"
-          unitType="nutrients"
-          value={data.phosphorus}
-          unit={units.phosphorus}
-          onChange={(value) => onDataChange("phosphorus", value)}
-          onUnitChange={(value) => onUnitChange("phosphorus", value)}
-          loading={loading}
-        />
-        <InputWithUnit
-          name="potassium"
-          label="Potassium"
-          unitType="nutrients"
-          value={data.potassium}
-          unit={units.potassium}
-          onChange={(value) => onDataChange("potassium", value)}
-          onUnitChange={(value) => onUnitChange("potassium", value)}
-          loading={loading}
-        />
-        <div className="space-y-1">
-          <Label htmlFor="ph">pH Value</Label>
-          <Input
-            id="ph"
-            value={data.ph}
-            type="number"
-            onChange={(e) => onDataChange("ph", e.target.value)}
-            disabled={loading}
-          />
-        </div>
-      </CardContent>
-    </Card>
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 md:text-xl">
-          <Gauge className="h-5 w-5 text-blue-500" />
-          Additional Metrics
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <InputWithUnit
-          name="temperature"
-          label="Temperature"
-          unitType="temperature"
-          value={data.temperature}
-          unit={units.temperature}
-          onChange={(value) => onDataChange("temperature", value)}
-          onUnitChange={(value) => onUnitChange("temperature", value)}
-          loading={loading}
-        />
-        <InputWithUnit
-          name="humidity"
-          label="Humidity"
-          unitType="humidity"
-          value={data.humidity}
-          unit={units.humidity}
-          onChange={(value) => onDataChange("humidity", value)}
-          onUnitChange={(value) => onUnitChange("humidity", value)}
-          loading={loading}
-        />
-        <InputWithUnit
-          name="conductivity"
-          label="Conductivity"
-          unitType="conductivity"
-          value={data.conductivity}
-          unit={units.conductivity}
-          onChange={(value) => onDataChange("conductivity", value)}
-          onUnitChange={(value) => onUnitChange("conductivity", value)}
-          loading={loading}
-        />
-        <div className="space-y-1">
-          <Label htmlFor="cropGrown">Current Crop</Label>
-          <Input
-            id="cropGrown"
-            value={data.cropGrown}
-            onChange={(e) => onDataChange("cropGrown", e.target.value)}
-            disabled={loading}
-          />
-        </div>
-        <Button type="submit" disabled={loading} className="w-full mt-4">
-          {loading ? (
-            <>
-              <Loader className="mr-1 animate-spin" />
-              Analysing...
-            </>
-          ) : (
-            "Analyze Soil"
-          )}
-        </Button>
-      </CardContent>
-    </Card>
-  </form>
+export const MonitoringForm: React.FC<MonitoringFormProps> = React.memo(
+  ({ data, units, onDataChange, onUnitChange, onSubmit, loading }) => {
+    const handleInputChange = useCallback(
+      (key: keyof MonitoringData, value: string) => {
+        onDataChange(key, value);
+      },
+      [onDataChange]
+    );
+
+    return (
+      <form onSubmit={onSubmit}>
+        <Card className="w-full">
+          <CardContent className="pt-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <InputWithUnit
+                name="nitrogen"
+                label="Nitrogen"
+                UnitCategory="nutrients"
+                value={data.nitrogen}
+                unit={units.nitrogen}
+                onChange={(value) => handleInputChange("nitrogen", value)}
+                onUnitChange={(value) => onUnitChange("nitrogen", value)}
+                loading={loading}
+              />
+              <InputWithUnit
+                name="phosphorus"
+                label="Phosphorus"
+                UnitCategory="nutrients"
+                value={data.phosphorus}
+                unit={units.phosphorus}
+                onChange={(value) => handleInputChange("phosphorus", value)}
+                onUnitChange={(value) => onUnitChange("phosphorus", value)}
+                loading={loading}
+              />
+              <InputWithUnit
+                name="potassium"
+                label="Potassium"
+                UnitCategory="nutrients"
+                value={data.potassium}
+                unit={units.potassium}
+                onChange={(value) => handleInputChange("potassium", value)}
+                onUnitChange={(value) => onUnitChange("potassium", value)}
+                loading={loading}
+              />
+              <InputWithUnit
+                name="temperature"
+                label="Temperature"
+                UnitCategory="temperature"
+                value={data.temperature}
+                unit={units.temperature}
+                onChange={(value) => handleInputChange("temperature", value)}
+                onUnitChange={(value) => onUnitChange("temperature", value)}
+                loading={loading}
+              />
+              <div className="space-y-2">
+                <Label htmlFor="humidity">Humidity (%)</Label>
+                <Input
+                  id="humidity"
+                  type="number"
+                  value={data.humidity}
+                  onChange={(e) => onDataChange("humidity", e.target.value)}
+                  disabled={loading}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="ph">pH</Label>
+                <Input
+                  id="ph"
+                  type="number"
+                  value={data.ph}
+                  onChange={(e) => onDataChange("ph", e.target.value)}
+                  disabled={loading}
+                  required
+                />
+              </div>
+              <InputWithUnit
+                name="conductivity"
+                label="Conductivity"
+                UnitCategory="conductivity"
+                value={data.conductivity}
+                unit={units.conductivity}
+                onChange={(value) => handleInputChange("conductivity", value)}
+                onUnitChange={(value) => onUnitChange("conductivity", value)}
+                loading={loading}
+              />
+              <div className="space-y-2">
+                <Label htmlFor="crop">Current Crop</Label>
+                <Input
+                  id="crop"
+                  type="text"
+                  value={data.crop}
+                  onChange={(e) => onDataChange("crop", e.target.value)}
+                  disabled={loading}
+                  required
+                />
+              </div>
+            </div>
+            <Button type="submit" className="mt-6 w-full" disabled={loading}>
+              {loading ? (
+                <>
+                  <Loader className="mr-2 h-4 w-4 animate-spin" />
+                  Analyzing...
+                </>
+              ) : (
+                "Analyze Soil Health"
+              )}
+            </Button>
+          </CardContent>
+        </Card>
+      </form>
+    );
+  }
 );
+
+MonitoringForm.displayName = "MonitoringForm";

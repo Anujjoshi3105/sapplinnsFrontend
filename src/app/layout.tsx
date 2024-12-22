@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Azeret_Mono as Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
 import Footer from "@/sections/Footer";
 import Header from "@/sections/Header";
-import ClientLayout from "@/components/ClientLayout";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
+import Subscribe from "@/components/Subscribe";
+import { SubscribeProvider } from "@/contexts/SubscribeContext";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,11 +17,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const appUrl =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : process.env.NEXT_PUBLIC_APP_URL;
 
 export const metadata: Metadata = {
   title: "Sapplinns - A Revolution in Smart Farming",
@@ -45,13 +42,13 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: appUrl,
+    url: process.env.NEXT_PUBLIC_APP_URL,
     title: "Sapplinns - A Revolution in Smart Farming",
     description:
       "Sapplinns is a revolutionary smart farming platform that leverages cutting-edge technology for soil quality monitoring, crop prediction, irrigation management, and more.",
     images: [
       {
-        url: `${appUrl}/logo.png`,
+        url: `${process.env.NEXT_PUBLIC_APP_URL}/logo.png`,
         width: 1200,
         height: 630,
         alt: "Sapplinns - A Revolution in Smart Farming",
@@ -64,14 +61,14 @@ export const metadata: Metadata = {
     title: "Sapplinns - A Revolution in Smart Farming",
     description:
       "Sapplinns is a revolutionary smart farming platform that leverages cutting-edge technology for soil quality monitoring, crop prediction, irrigation management, and more.",
-    images: [`${appUrl}/logo.png`],
+    images: [`${process.env.NEXT_PUBLIC_APP_URL}/logo.png`],
   },
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: appUrl,
+    canonical: process.env.NEXT_PUBLIC_APP_URL,
   },
 };
 
@@ -92,10 +89,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} overflow-x-clip antialiased relative`}
         suppressHydrationWarning>
-        <Header />
-        <ClientLayout>{children}</ClientLayout>
-        <Footer />
-        <Toaster />
+        <SubscribeProvider>
+          <Header />
+          <Breadcrumb>{children}</Breadcrumb>
+          <Footer />
+          <Toaster />
+          <Subscribe />
+        </SubscribeProvider>
       </body>
     </html>
   );

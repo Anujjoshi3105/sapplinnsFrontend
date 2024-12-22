@@ -1,5 +1,5 @@
 import { connectDB } from "@/lib/db";
-import CustomerModel from "@/models/customer.model";
+import UserModel from "@/models/UserModel";
 
 export async function GET() {
   try {
@@ -21,9 +21,9 @@ export async function POST(req: Request): Promise<Response> {
   try {
     await connectDB();
 
-    const userIp =
+    const { userIp } = await req.json();
+    const checkIp =
       req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip");
-
     if (!userIp) {
       return new Response(
         JSON.stringify({ success: false, message: "IP not found", chances: 0 }),
@@ -31,10 +31,10 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
 
-    let user = await CustomerModel.findOne({ ipAddress: userIp });
+    let user = await UserModel.findOne({ userIp: userIp });
 
     if (!user) {
-      user = await CustomerModel.create({ ipAddress: userIp });
+      user = await UserModel.create({ userIp: userIp, checkIp: checkIp });
       return new Response(
         JSON.stringify({
           success: true,
@@ -72,10 +72,10 @@ export async function POST(req: Request): Promise<Response> {
     return new Response(
       JSON.stringify({
         success: false,
-        message: "Limit exceeded. Access denied.",
+        message: "Limit exceeded. Access denied",
         chances: 0,
       }),
-      { status: 403 }
+      { status: 200 }
     );
   } catch (error) {
     console.error("Internal server error:", error);

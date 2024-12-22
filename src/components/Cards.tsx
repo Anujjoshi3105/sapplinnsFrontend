@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Button } from "./ui/button";
+import SubscribeBtn from "./SubscribeBtn";
 import {
   Card,
   CardContent,
@@ -8,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { ArrowRightIcon } from "lucide-react";
 
 export function ServiceCard({
   service,
@@ -44,13 +42,7 @@ export function ServiceCard({
         </ul>
       </CardContent>
       <CardFooter>
-        <Button
-          effect="expandIcon"
-          icon={ArrowRightIcon}
-          iconPlacement="right"
-          className="w-full">
-          <Link href="/contact">Learn More</Link>
-        </Button>
+        <SubscribeBtn className="w-full">Subscribe</SubscribeBtn>
       </CardFooter>
     </Card>
   );
