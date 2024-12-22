@@ -66,9 +66,7 @@ export default function Predictor() {
 
   const checkChances = useCallback(async () => {
     try {
-      const ipResponse = await axios.get("https://api.ipify.org?format=json");
-      const userIp = ipResponse.data.ip;
-      const chances = await axios.post("/api/user", { userIp: userIp });
+      const chances = await axios.post("/api/user");
       setChances(chances.data.chances);
 
       if (chances.data.chances === 0) {
@@ -327,12 +325,12 @@ export default function Predictor() {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}>
               <div className="bg-blue-50 rounded-xl p-4 sm:p-6 md:p-8 lg:p-12">
-                <p className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <Tractor className="h-12 w-12 bg-white rounded-full p-2 text-blue-500" />
                   <h3 className="font-bold text-xl text-blue-600">
                     Soil Health Details
                   </h3>
-                </p>
+                </div>
 
                 {results.cropHealth && (
                   <motion.div

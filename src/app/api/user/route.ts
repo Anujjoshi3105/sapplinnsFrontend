@@ -21,8 +21,7 @@ export async function POST(req: Request): Promise<Response> {
   try {
     await connectDB();
 
-    const { userIp } = await req.json();
-    const checkIp =
+    const userIp =
       req.headers.get("x-forwarded-for") || req.headers.get("cf-connecting-ip");
     if (!userIp) {
       return new Response(
@@ -34,7 +33,7 @@ export async function POST(req: Request): Promise<Response> {
     let user = await UserModel.findOne({ userIp: userIp });
 
     if (!user) {
-      user = await UserModel.create({ userIp: userIp, checkIp: checkIp });
+      user = await UserModel.create({ userIp: userIp });
       return new Response(
         JSON.stringify({
           success: true,
