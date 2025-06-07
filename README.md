@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🌱 Sapplinns – Empowering Farmers with Precision Technology
 
-## Getting Started
+**Grow smarter, greener, and more resilient with Sapplinns.**  
+Sapplinns is an intelligent AgriTech platform designed to support sustainable and organic farming through advanced monitoring, smart crop prediction, and data-driven tools. Built with a focus on accessibility and scalability, it offers tailored solutions for farmers of all sizes.
 
-First, run the development server:
+## [Live Demo](https://sapplinns.netlify.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![sapplinn](https://github.com/user-attachments/assets/a3c13004-d586-4a40-a63a-eda011dc8e23)
+
+---
+
+## 🛠 Tech Stack
+
+| Tech          | Role                                            |
+|---------------|-------------------------------------------------|
+| **Next.js**   | Frontend framework with dynamic routing and SSR |
+| **FastAPI**   | High-performance Python backend/API             |
+| **Tailwind CSS** | Utility-first CSS for responsive UI         |
+| **Framer Motion** | Page and component animations               |
+| **Rate Limiting** | Protect APIs from overuse (via FastAPI middleware) |
+
+---
+
+## 🌿 Features
+
+- 🚜 **Smart Crop Prediction** using soil nutrients, weather, and environmental data
+- 🌦 **Sensor-based Monitoring** for pH, temperature, humidity, rainfall, and nutrients
+- 🌾 **Farming Plans** for small to enterprise farms with tiered features
+- 🧪 **Real-time Health Insights** with nitrogen, phosphorus, potassium analysis
+- 📈 **AI-powered Analysis & Forecasting** for optimized decision-making
+- 🧠 **Pest & Disease Alerts** customized by crop and region
+- 💌 **Email Subscription & Contact Forms** for user engagement
+- 🌍 **Sustainable & Organic Focus** with community-driven farming methods
+- 🔒 **API Rate Limiting** for secure, efficient backend usage
+
+---
+
+## 📁 Project Structure
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+sapplinns/
+├── frontend/                # Next.js app
+│   ├── pages/              # Routes (index, about, contact, plans, etc.)
+│   ├── components/         # UI components (Navbar, Cards, Forms)
+│   ├── styles/             # Tailwind CSS and global styles
+│   └── public/             # Static assets (images, icons)
+│
+├── backend/                # FastAPI backend
+│   ├── main.py             # FastAPI entry point
+│   ├── routes/             # API endpoints (predict, monitor, plans)
+│   ├── models/             # Pydantic models and validation
+│   ├── services/           # Crop prediction logic and AI modules
+│   └── middleware/         # Rate limiting logic
+│
+└── README.md
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+````
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🚀 Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Clone the repository
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+git clone https://github.com/yourusername/sapplinns.git
+cd sapplinns
+````
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Setup Frontend
 
-## Deploy on Vercel
+```bash
+cd frontend
+npm install
+npm run dev
+# Visit http://localhost:3000
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Setup Backend
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+# API runs on http://localhost:8000
+```
+
+---
+
+## 🔐 API Security & Rate Limiting
+
+To prevent abuse, Sapplinns backend uses FastAPI middleware to:
+
+* Limit requests per IP using time-based quotas
+* Return 429 responses if thresholds are exceeded
+* Allow safe retry headers for compliant clients
+
+
+## 📄 License
+
+This project is developed for educational, research, and sustainable agricultural use. Commercial licensing is available upon request.
+
+---
+
+## ✨ Credits
+
+Built with 💚 by [Anuj Joshi](https://github.com/Anujjoshi3105) and contributors
+Inspired by the vision of transforming Indian agriculture with tech innovation.
